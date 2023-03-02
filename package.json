@@ -1,24 +1,21 @@
 {
-  "name": "desafio-soft-jobs",
+  "name": "proyecto-desafio-latam",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js"
+    "dev": "./src nodemon index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MageLnk/Desafio-Soft-jobs.git"
+    "url": "git+https://github.com/MageLnk/Backend-botilleria-examen-desafioLatam.git"
   },
-  "keywords": [],
-  "author": "MageLink",
-  "license": "",
+  "author": "",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MageLnk/Desafio-Soft-jobs/issues"
+    "url": "https://github.com/MageLnk/Backend-botilleria-examen-desafioLatam/issues"
   },
-  "homepage": "https://github.com/MageLnk/Desafio-Soft-jobs#readme",
+  "homepage": "https://github.com/MageLnk/Backend-botilleria-examen-desafioLatam#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
