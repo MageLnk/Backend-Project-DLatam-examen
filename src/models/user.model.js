@@ -1,5 +1,5 @@
 const userModel = (sequelize, DataTypes) => {
-  const User = sequelize.define("usuarios", {
+  const User = sequelize.define("users", {
     id_users: {
       type: DataTypes.BIGINT,
       autoIncrement: true,
@@ -35,6 +35,9 @@ const userModel = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+
+  // Define la relación de muchos a uno
+  User.belongsTo(sequelize.models.Store, { as: "store" });
 
   return User;
 };
