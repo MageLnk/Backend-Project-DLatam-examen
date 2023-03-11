@@ -13,10 +13,10 @@ const colorModel = (sequelize, DataTypes) => {
   });
 
   // Define la relación de muchos a uno entre Color y Products
-  Color.belongsTo(sequelize.models.Product, { as: "products" });
+  //Color.belongsTo(sequelize.models.Product, { as: "products" });
 
   // Define la relación de uno a muchos entre Color y ColorTone
-  Color.hasMany(sequelize.models.ColorTone, { as: "color_tones" });
+  //Color.hasMany(sequelize.models.ColorTone, { as: "color_tones" });
 
   return Color;
 };

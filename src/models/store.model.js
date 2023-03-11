@@ -1,6 +1,6 @@
 const storeModel = (sequelize, DataTypes) => {
   const Store = sequelize.define("store", {
-    id_users: {
+    id_store: {
       type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
@@ -17,10 +17,10 @@ const storeModel = (sequelize, DataTypes) => {
   });
 
   // Define la relación de uno a muchos entre Store y User
-  Store.hasMany(sequelize.models.User, { as: "users" });
+  //Store.hasMany(sequelize.models.User, { foreignKey: { name: "id_store", allowNull: false }, sourceKey: "id_users" });
 
   // Define la relación de uno a muchos entre Store y ProductStore
-  Store.hasMany(sequelize.models.ProductsStores, { as: "product_stores" });
+  //Store.hasMany(sequelize.models.ProductStore, { foreignKey: { name: "id_products_stores", allowNull: false } });
 
   return Store;
 };

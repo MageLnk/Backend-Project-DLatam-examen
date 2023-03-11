@@ -37,7 +37,7 @@ const userModel = (sequelize, DataTypes) => {
   });
 
   // Define la relación de muchos a uno
-  User.belongsTo(sequelize.models.Store, { as: "store" });
+  //User.belongsTo(sequelize.models.Store, { foreignKey: { name: "id_store", allowNull: false }, targetId: "id_users" });
 
   return User;
 };

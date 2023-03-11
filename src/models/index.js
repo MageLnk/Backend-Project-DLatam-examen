@@ -28,12 +28,14 @@ const models = {
 };
 
 // Define Relationships
-models.Store.hasMany(models.User, { as: "users" });
-models.Store.hasMany(models.ProductStore, { as: "products_stores" });
-models.ProductStore.belongsTo(models.Store, { as: "store" });
-models.ProductStore.belongsTo(models.Product, { as: "products" });
-models.Product.belongsToMany(models.Color, { through: models.ColorTone });
-models.Color.belongsToMany(models.Product, { through: models.ColorTone });
+models.Store.hasMany(models.User, { foreignKey: "id_users", sourceKey: "id_users" });
+models.User.belongsTo(models.Store, { foreignKey: "id_store", targetId: "id_store" });
+//models.Store.hasMany(models.User, { as: "users" });
+//models.Store.hasMany(models.ProductStore, { as: "products_stores" });
+//models.ProductStore.belongsTo(models.Store, { as: "store" });
+//models.ProductStore.belongsTo(models.Product, { as: "products" });
+//models.Product.belongsToMany(models.Color, { through: models.ColorTones });
+//models.Color.belongsToMany(models.Product, { through: models.ColorTones });
 
 // export
 module.exports = { sequelize, models };

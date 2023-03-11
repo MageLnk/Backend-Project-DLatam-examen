@@ -33,10 +33,10 @@ const productModel = (sequelize, DataTypes) => {
   });
 
   // Define la relación de muchos a uno entre Product y ProductStore
-  Product.belongsTo(sequelize.models.ProductsStores, { as: "products_stores" });
+  //Product.belongsTo(sequelize.models.ProductsStores, { as: "products_stores" });
 
   // Define la relación de uno a muchos entre Product y Color
-  Product.hasMany(sequelize.models.Color, { as: "colors" });
+  //Product.hasMany(sequelize.models.Color, { as: "colors" });
 
   return Product;
 };
