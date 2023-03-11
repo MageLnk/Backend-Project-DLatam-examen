@@ -3,12 +3,12 @@ const {
   config: { database },
 } = require("../config/config");
 // Bring Models
-const User = require("./user.model");
+const User = require("./user.model.js");
 const Store = require("./store.model");
-const ProductStore = require("./products_stores.model");
-const Product = require("./products.model");
-const Color = require("./color.model");
-const ColorTones = require("./color_tones.model");
+const ProductStore = require("./products_stores.model.js");
+const Product = require("./products.model.js");
+const Color = require("./color.model.js");
+const ColorTones = require("./color_tones.model.js");
 // Set DB
 // Option 3: Passing parameters separately (other dialects)
 const sequelize = new Sequelize(database.dbName, database.user, database.password, {
@@ -28,8 +28,16 @@ const models = {
 };
 
 // Define Relationships
-models.Store.hasMany(models.User, { foreignKey: "id_users", sourceKey: "id_users" });
-models.User.belongsTo(models.Store, { foreignKey: "id_store", targetId: "id_store" });
+// Modelo 3, el del profe
+Object.keys(models).forEach((key) => {
+  if ("associate" in models[key]) {
+    models[key].associate(models);
+  }
+});
+// Intento 2
+//models.Store.hasMany(models.User, { foreignKey: "id_users", sourceKey: "id_users" });
+//models.User.belongsTo(models.Store, { foreignKey: "id_store", targetId: "id_store" });
+// Intento 1
 //models.Store.hasMany(models.User, { as: "users" });
 //models.Store.hasMany(models.ProductStore, { as: "products_stores" });
 //models.ProductStore.belongsTo(models.Store, { as: "store" });
