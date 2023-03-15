@@ -1,27 +1,20 @@
 const storeModel = (sequelize, DataTypes) => {
-  const Store = sequelize.define(
-    "store",
-    {
-      id_store: {
-        type: DataTypes.BIGINT,
-        autoIncrement: true,
-        primaryKey: true,
-        allowNull: false,
-      },
-      name_store: {
-        type: DataTypes.STRING(250),
-        allowNull: false,
-      },
-      address_store: {
-        type: DataTypes.STRING(250),
-        allowNull: false,
-      },
+  const Store = sequelize.define("store", {
+    id_store: {
+      type: DataTypes.BIGINT,
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false,
     },
-    {
-      sequelize,
-      modelName: "storeModel",
-    }
-  );
+    name_store: {
+      type: DataTypes.STRING(250),
+      allowNull: false,
+    },
+    address_store: {
+      type: DataTypes.STRING(250),
+      allowNull: false,
+    },
+  });
 
   // Modelo 1
   // Define la relación de uno a muchos entre Store y User
@@ -32,7 +25,8 @@ const storeModel = (sequelize, DataTypes) => {
 
   // Modelo 3, el del profe
   Store.associate = (models) => {
-    Store.HasMany(models.User);
+    Store.hasMany(models.User);
+    Store.hasMany(models.ProductStore);
   };
 
   return Store;

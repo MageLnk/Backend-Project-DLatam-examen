@@ -9,6 +9,14 @@ const productsStoresModel = (sequelize, DataTypes) => {
     stocks: {
       type: DataTypes.BIGINT,
     },
+    id_store: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
+    id_product: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
   });
 
   // Define la relación de muchos a uno entre ProductStore y Store
@@ -16,6 +24,11 @@ const productsStoresModel = (sequelize, DataTypes) => {
 
   // Define la relación de uno a muchos entre ProductStore y Product
   //ProductsStores.hasMany(sequelize.models.Product, { as: "products" });
+
+  ProductsStores.associate = (models) => {
+    ProductsStores.belongsTo(models.Store, { as: "store", foreignKey: "id_store" });
+    ProductsStores.belongsTo(models.Product, { as: "product", foreignKey: "id_product" });
+  };
 
   return ProductsStores;
 };
