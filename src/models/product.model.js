@@ -1,6 +1,6 @@
 const productModel = (sequelize, DataTypes) => {
-  const Product = sequelize.define("products", {
-    id_products: {
+  const Product = sequelize.define("product", {
+    id_product: {
       type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
@@ -30,15 +30,15 @@ const productModel = (sequelize, DataTypes) => {
       type: DataTypes.STRING(250),
       allowNull: false,
     },
+    id_color: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
   });
 
-  // Define la relación de muchos a uno entre Product y ProductStore
-  //Product.belongsTo(sequelize.models.ProductsStores, { as: "products_stores" });
-
-  // Define la relación de uno a muchos entre Product y Color
-  //Product.hasMany(sequelize.models.Color, { as: "colors" });
   Product.associate = (models) => {
     Product.hasMany(models.ProductStore);
+    Product.belongsTo(models.Color, { as: "color", foreignKey: "id_color" });
   };
 
   return Product;

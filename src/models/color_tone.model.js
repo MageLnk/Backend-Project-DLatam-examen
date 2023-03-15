@@ -1,6 +1,6 @@
 const colorTonesModel = (sequelize, DataTypes) => {
-  const ColorTones = sequelize.define("color_tones", {
-    id_colors: {
+  const ColorTone = sequelize.define("color_tone", {
+    id_color: {
       type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
@@ -10,12 +10,17 @@ const colorTonesModel = (sequelize, DataTypes) => {
       type: DataTypes.STRING(100),
       allowNull: false,
     },
+    id_color: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
   });
 
-  // Define la relación de muchos a uno entre ColorTone y Color
-  //ColorTone.belongsTo(sequelize.models.Color, { as: "colors" });
+  ColorTone.associate = (models) => {
+    ColorTone.belongsTo(models.Color, { as: "color", foreignKey: "id_color" });
+  };
 
-  return ColorTones;
+  return ColorTone;
 };
 
 module.exports = colorTonesModel;

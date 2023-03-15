@@ -1,6 +1,6 @@
 const userModel = (sequelize, DataTypes) => {
   const User = sequelize.define("user", {
-    id_users: {
+    id_user: {
       type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
@@ -41,11 +41,6 @@ const userModel = (sequelize, DataTypes) => {
     },
   });
 
-  // Modelo 1
-  // Define la relación de muchos a uno
-  //User.belongsTo(sequelize.models.Store, { foreignKey: { name: "id_store", allowNull: false }, targetId: "id_users" });
-
-  // Modelo 3, el del profe
   User.associate = (models) => {
     User.belongsTo(models.Store, { as: "store", foreignKey: "id_store" });
   };
