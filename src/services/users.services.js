@@ -38,10 +38,15 @@ users.getUserDataService = async ({ email }) => {
     if (!lookingForUser) throw "El email no está registrado";
     const cleanInfo = lookingForUser.get({ raw: true });
 
-    return {
-      email: cleanInfo.email,
-      username: cleanInfo.username,
-    };
+    const properties = ["email", "username", "name", "last_name", "phone", "addres_user"];
+    return properties.reduce((cleaned, property) => {
+      if (cleanInfo[property]) {
+        cleaned[property] = cleanInfo[property];
+      } else {
+        cleaned[property] = "";
+      }
+      return cleaned;
+    }, {});
   } catch (error) {
     throw error;
   }
