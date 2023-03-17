@@ -33,19 +33,19 @@ const morganHechizo = (req, res, next) => {
 
 const validateUserData = (req, res, next) => {
   try {
-    const validProperties = ["email", "address_user", "phone", "name", "last_name", "username"];
     const userData = req.body;
     // ESTO DE ABAJO NO HACE LO QUE SE SUPONE QUE TIENE QUE HACER
     if (!Object.keys(userData).length === 0) {
       res.status(401).send({ msg: "Tiene que enviar información para cambiar" });
       return;
     }
+
+    const validProperties = ["email", "address_user", "phone", "name", "last_name", "username"];
     const keys = Object.keys(userData);
-    for (let i = 0; i < keys.length; i++) {
-      if (!validProperties.includes(keys[i])) {
-        res.status(401).send({ msg: `Invalid property "${keys[i]}"` });
-        return;
-      }
+    const isValid = keys.every((key) => validProperties.includes(key));
+    if (!isValid) {
+      res.status(401).send({ msg: `Uno de los parámetros no corresponde` });
+      return;
     }
 
     next();
@@ -55,4 +55,28 @@ const validateUserData = (req, res, next) => {
   }
 };
 
-module.exports = { tokenVerification, validateUserData, morganHechizo };
+const validateUserPassword = (req, res, next) => {
+  try {
+    const userData = req.body;
+    // ESTO DE ABAJO NO HACE LO QUE SE SUPONE QUE TIENE QUE HACER
+    if (!Object.keys(userData).length === 0) {
+      res.status(401).send({ msg: "Tiene que enviar una contraseña para cambiar" });
+      return;
+    }
+
+    const validProperties = ["password"];
+    const keys = Object.keys(userData);
+    const isValid = keys.every((key) => validProperties.includes(key));
+    if (!isValid) {
+      res.status(401).send({ msg: `El parámetro de contraseña no corresponde` });
+      return;
+    }
+
+    next();
+  } catch (error) {
+    res.status(500).send({ msg: error });
+    console.error(`Un usuario acaba de generar el error: ${error}`);
+  }
+};
+
+module.exports = { tokenVerification, validateUserData, validateUserPassword, morganHechizo };

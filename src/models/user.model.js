@@ -12,7 +12,7 @@ const userModel = (sequelize, DataTypes) => {
       unique: true,
     },
     password: {
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING(200),
       allowNull: false,
     },
     address_user: {

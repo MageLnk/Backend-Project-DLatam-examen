@@ -3,9 +3,10 @@ const jwt = require("jsonwebtoken");
 const { config } = require("../config/config");
 // Services
 const {
-  createNewUserService,
   userLogInService,
   getUserDataService,
+  updateUserPassword,
+  createNewUserService,
   updateUserDataService,
 } = require("../services/users.services");
 //
@@ -50,10 +51,23 @@ controller.bringUserDataController = async (req, res) => {
 controller.updateUserData = async (req, res) => {
   try {
     const token = req.headers.authorization.split("Bearer ")[1];
-    const data = jwt.decode(token);
-    const newData = req.body;
-    await updateUserDataService(data, newData);
+    const dataDecoded = jwt.decode(token);
+    const dataBody = req.body;
+    await updateUserDataService(dataDecoded, dataBody);
     res.status(200).send({ msg: "Sus datos han sido actualizados" });
+  } catch (error) {
+    res.status(500).send({ msg: error });
+    console.error(`Un usuario acaba de generar el error: ${error}`);
+  }
+};
+
+controller.updatePasswordController = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split("Bearer ")[1];
+    const dataDecoded = jwt.decode(token);
+    const { password } = req.body;
+    await updateUserPassword(dataDecoded, password);
+    res.status(200).send({ msg: "Su contraseña ha sido actualizada" });
   } catch (error) {
     res.status(500).send({ msg: error });
     console.error(`Un usuario acaba de generar el error: ${error}`);
