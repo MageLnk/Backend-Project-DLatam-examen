@@ -11,9 +11,8 @@ CREATE TABLE users (
 -- Crear la tabla "store"
 CREATE TABLE store (
   store_id INT PRIMARY KEY,
-  name VARCHAR(50),
-  address VARCHAR(100),
-  phone VARCHAR(20)
+  name_store VARCHAR(100),
+  address_store VARCHAR(100),
 );
 
 -- Crear la tabla "product_stores"
@@ -23,8 +22,7 @@ CREATE TABLE product_stores (
   product_id INT,
   color_id INT,
   FOREIGN KEY (store_id) REFERENCES store(store_id),
-  FOREIGN KEY (product_id) REFERENCES products(product_id),
---  FOREIGN KEY (color_id) REFERENCES colors(color_id)
+  FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
 -- Crear la tabla "products"
@@ -51,55 +49,38 @@ CREATE TABLE colors_tones (
   FOREIGN KEY (color_id) REFERENCES colors(color_id)
 );
 
---ALTER TABLE users ADD store_id INT;
---ALTER TABLE users ADD FOREIGN KEY (store_id) REFERENCES store(store_id);
---
---ALTER TABLE product_stores ADD color_id INT;
---ALTER TABLE product_stores ADD FOREIGN KEY (color_id) REFERENCES colors(color_id);
---
---ALTER TABLE products ADD color_id INT;
---ALTER TABLE products ADD FOREIGN KEY (color_id) REFERENCES colors(color_id);
+--- INSERTS TEST
 
--- Id color va en product_store y en ningún otro lado
+-- Inserts para "store"
+INSERT INTO stores (name_store, address_store, createdAt, updatedAt)
+VALUES ('Tienda de Pinturas ABC', 'Calle Falsa 123', NOW(), NOW()),
+('Pinturas y Materiales XYZ', 'Avenida Siempre Viva 456', NOW(), NOW()),
+('La Casa de las Pinturas', 'Calle de la Alegría 789', NOW(), NOW()),
+('Pinturas Artísticas SAS', 'Carrera 10 # 20-30', NOW(), NOW()),
+('Pinturas y Pinceles SRL', 'Calle 20 # 5-67', NOW(), NOW());
 
-------- MODELO ORIGINAL
+SELECT * FROM stores;
 
--- Crear la tabla "store"
-CREATE TABLE store (
-  store_id INT PRIMARY KEY,
-  name VARCHAR(50),
-  location VARCHAR(50)
-);
+-- Inserts para "product_stores"
+INSERT INTO product_stores (product_store_id, store_id, product_id, color_id) VALUES (1, 1, 1, 1);
+INSERT INTO product_stores (product_store_id, store_id, product_id, color_id) VALUES (2, 1, 2, 2);
+INSERT INTO product_stores (product_store_id, store_id, product_id, color_id) VALUES (3, 2, 3, 3);
+INSERT INTO product_stores (product_store_id, store_id, product_id, color_id) VALUES (4, 2, 1, 2);
+INSERT INTO product_stores (product_store_id, store_id, product_id, color_id) VALUES (5, 2, 2, 1);
 
--- Crear la tabla "products"
-CREATE TABLE products (
-  product_id INT PRIMARY KEY,
-  name VARCHAR(50),
-  description VARCHAR(100),
-  color_id INT,
-  FOREIGN KEY (color_id) REFERENCES colors(color_id)
-);
+-- Inserts para "products"
+INSERT INTO products (product_id, name, description, price, color_id) VALUES (1, 'Pintura blanca', 'Pintura de color blanco', 20.99, 1);
+INSERT INTO products (product_id, name, description, price, color_id) VALUES (2, 'Pintura negra', 'Pintura de color negro', 19.99, 2);
+INSERT INTO products (product_id, name, description, price, color_id) VALUES (3, 'Pintura roja', 'Pintura de color rojo', 22.99, 3);
 
--- Crear la tabla "products_store"
-CREATE TABLE products_store (
-  product_store_id INT PRIMARY KEY,
-  store_id INT,
-  product_id INT,
-  quantity INT,
-  FOREIGN KEY (store_id) REFERENCES store(store_id),
-  FOREIGN KEY (product_id) REFERENCES products(product_id)
-);
+-- Inserts para "colors"
+INSERT INTO colors (color_id, name) VALUES (1, 'Blanco');
+INSERT INTO colors (color_id, name) VALUES (2, 'Azul');
+INSERT INTO colors (color_id, name) VALUES (3, 'Rojo');
 
--- Crear la tabla "colors"
-CREATE TABLE colors (
-  color_id INT PRIMARY KEY,
-  name VARCHAR(50)
-);
-
--- Crear la tabla "colors_tones"
-CREATE TABLE colors_tones (
-  color_tone_id INT PRIMARY KEY,
-  color_id INT,
-  name VARCHAR(50),
-  FOREIGN KEY (color_id) REFERENCES colors(color_id)
-);
+INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (1, 3, 'Rojo 1');
+INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (2, 3, 'Rojo 2');
+INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (3, 2, 'Azul 1');
+INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (4, 2, 'Azul 2');
+INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (5, 1, 'Blanco 1');
+INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (6, 1, 'Blanco 2');

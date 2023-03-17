@@ -7,11 +7,11 @@ const storeModel = (sequelize, DataTypes) => {
       allowNull: false,
     },
     name_store: {
-      type: DataTypes.STRING(250),
+      type: DataTypes.STRING(150),
       allowNull: false,
     },
     address_store: {
-      type: DataTypes.STRING(250),
+      type: DataTypes.STRING(200),
       allowNull: false,
     },
   });

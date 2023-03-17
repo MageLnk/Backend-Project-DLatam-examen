@@ -39,8 +39,8 @@ controller.loginUserController = async (req, res) => {
 controller.bringUserDataController = async (req, res) => {
   try {
     const token = req.headers.authorization.split("Bearer ")[1];
-    const data = jwt.decode(token);
-    const userData = await getUserDataService(data);
+    const dataDecoded = jwt.decode(token);
+    const userData = await getUserDataService(dataDecoded);
     res.status(200).send(userData);
   } catch (error) {
     res.status(500).send({ msg: error });
