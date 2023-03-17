@@ -1,18 +1,18 @@
 const express = require("express");
 const router = express.Router();
 // Middlewares
-const { tokenVerification } = require("../middlewares/");
+const { tokenVerification, validateUserData } = require("../middlewares/");
 // Controllers
 const {
   createNewUserController,
   loginUserController,
-  bringUserDataTestController,
+  bringUserDataController,
+  updateUserData,
 } = require("../controllers/users.controllers");
-// Routes
-router.post("/", createNewUserController);
-
-router.post("/login", loginUserController);
-
-router.get("/", tokenVerification, bringUserDataTestController);
+// Routes User
+router.post("/", createNewUserController); // Crear nuevo usuario
+router.post("/login", loginUserController); // Logear usuario. Retorna solo el Token
+router.get("/", tokenVerification, bringUserDataController); // Requiere Token
+router.patch("/", tokenVerification, validateUserData, updateUserData); // Requiere Token y Body
 
 module.exports = router;

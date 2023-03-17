@@ -1,4 +1,3 @@
-const jwt = require("jsonwebtoken");
 const { validateToken } = require("../utilities/validateToken");
 //
 
@@ -32,4 +31,28 @@ const morganHechizo = (req, res, next) => {
   return next();
 };
 
-module.exports = { tokenVerification, morganHechizo };
+const validateUserData = (req, res, next) => {
+  try {
+    const validProperties = ["email", "address_user", "phone", "name", "last_name", "username"];
+    const userData = req.body;
+    // ESTO DE ABAJO NO HACE LO QUE SE SUPONE QUE TIENE QUE HACER
+    if (!Object.keys(userData).length === 0) {
+      res.status(401).send({ msg: "Tiene que enviar información para cambiar" });
+      return;
+    }
+    const keys = Object.keys(userData);
+    for (let i = 0; i < keys.length; i++) {
+      if (!validProperties.includes(keys[i])) {
+        res.status(401).send({ msg: `Invalid property "${keys[i]}"` });
+        return;
+      }
+    }
+
+    next();
+  } catch (error) {
+    res.status(500).send({ msg: error });
+    console.error(`Un usuario acaba de generar el error: ${error}`);
+  }
+};
+
+module.exports = { tokenVerification, validateUserData, morganHechizo };

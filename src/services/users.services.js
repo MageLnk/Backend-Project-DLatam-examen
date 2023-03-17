@@ -13,7 +13,8 @@ users.createNewUserService = async ({ username, email, password, type = "usuario
     const newUser = await User.create({ username, email, password: hashPass, type });
     return newUser.get({ raw: true });
   } catch (error) {
-    throw { error };
+    if (error.name === "SequelizeUniqueConstraintError") throw "El email ya está registrado";
+    throw { Msg: "Otro error misterior", error };
   }
 };
 
@@ -43,6 +44,17 @@ users.getUserDataService = async ({ email }) => {
     };
   } catch (error) {
     throw error;
+  }
+};
+
+users.updateUserDataService = async ({ email }, newData) => {
+  try {
+    const lookingForUser = await User.findOne({ where: { email: email } });
+    if (!lookingForUser) throw "El email no está registrado";
+    await lookingForUser.update(newData);
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") throw "El email ya está registrado";
+    throw { Msg: "Otro error misterior", error };
   }
 };
 
