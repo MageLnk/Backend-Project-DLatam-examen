@@ -2,13 +2,13 @@ const jwt = require("jsonwebtoken");
 
 const validateToken = async (tokenLocal, res) => {
   try {
-    const validate = await jwt.verify(tokenLocal, process.env.SECRET_KEY, (err, payload) => {
-      if (err) throw { msg: "Token no válido", err };
+    const validate = await jwt.verify(tokenLocal, process.env.JWT_SECRET_WORD, (err, payload) => {
+      if (err) throw "Token ignresado no es válido";
       return payload;
     });
     return validate;
   } catch (error) {
-    throw { msg: "Algo inesperado ha ocurrido", error };
+    throw error;
   }
 };
 

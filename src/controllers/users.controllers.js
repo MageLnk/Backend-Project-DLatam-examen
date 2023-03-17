@@ -2,14 +2,14 @@ const jwt = require("jsonwebtoken");
 // Config
 const { config } = require("../config/config");
 // Services
-const { createNewUser, checkUserInfoForLogIn, getUserData } = require("../services/users.services");
+const { createNewUserService, userLogInService, getUserDataService } = require("../services/users.services");
 //
 const controller = {};
 
 controller.createNewUserController = async (req, res) => {
   try {
     const userInfo = req.body;
-    const newUser = await createNewUser(userInfo);
+    const newUser = await createNewUserService(userInfo);
     res.status(200).send({ msg: `El usuario de correo ${newUser.email} ha creado con éxito` });
   } catch (error) {
     res.status(500).send({ msg: error });
@@ -20,8 +20,9 @@ controller.createNewUserController = async (req, res) => {
 controller.loginUserController = async (req, res) => {
   try {
     const userInfo = req.body;
-    await checkUserInfoForLogIn(userInfo);
-    const token = jwt.sign(userInfo.email, config.jwtSecret);
+    const cleanInfo = await userLogInService(userInfo);
+    const { username, email } = cleanInfo;
+    const token = jwt.sign({ username, email }, config.jwtSecret);
     res.status(200).send(token);
   } catch (error) {
     res.status(500).send({ msg: error });
@@ -32,8 +33,8 @@ controller.loginUserController = async (req, res) => {
 controller.bringUserDataTestController = async (req, res) => {
   try {
     const token = req.header("Authorization").split("Bearer ")[1];
-    const email = jwt.decode(token);
-    const userData = await getUserData(email);
+    const data = jwt.decode(token);
+    const userData = await getUserDataService(data);
     res.status(200).send(userData);
   } catch (error) {
     res.status(500).send({ msg: error });

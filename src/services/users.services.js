@@ -7,38 +7,39 @@ const {
 
 const users = {};
 
-users.createNewUser = async ({ email, password, type = "usuario" }) => {
+users.createNewUserService = async ({ username, email, password, type = "usuario" }) => {
   try {
     const hashPass = bcrypt.hashSync(password);
-    const newUser = await User.create({ email, password: hashPass, type });
+    const newUser = await User.create({ username, email, password: hashPass, type });
     return newUser.get({ raw: true });
   } catch (error) {
     throw { error };
   }
 };
 
-users.checkUserInfoForLogIn = async ({ email, password }) => {
+users.userLogInService = async ({ email, password }) => {
   try {
     const lookingForUser = await User.findOne({ where: { email: email } });
     if (!lookingForUser) throw "El email no está registrado";
     const cleanInfo = lookingForUser.get({ raw: true });
+    //console.log("cleanInfo", cleanInfo);
     const { password: passSaved } = cleanInfo;
     const checkPassword = bcrypt.compareSync(password, passSaved);
     if (!checkPassword) throw "La contraseña es incorrecta";
+    return cleanInfo;
   } catch (error) {
     throw error;
   }
 };
 
-users.getUserData = async (email) => {
+users.getUserDataService = async ({ email }) => {
   try {
     const lookingForUser = await User.findOne({ where: { email: email } });
     if (!lookingForUser) throw "El email no está registrado";
     const cleanInfo = lookingForUser.get({ raw: true });
     return {
       email: cleanInfo.email,
-      rol: cleanInfo.rol,
-      lenguage: cleanInfo.lenguage,
+      username: cleanInfo.username,
     };
   } catch (error) {
     throw error;

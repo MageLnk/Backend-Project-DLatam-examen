@@ -4,17 +4,14 @@ const { validateToken } = require("../utilities/validateToken");
 
 const tokenVerification = async (req, res, next) => {
   try {
-    console.log("VERIFICATIOOOOOOON", req.headers.authorization);
-    const token = req.header("Authorization").split("Bearer ")[1];
+    if (!req.headers.authorization) return res.status(403).send({ msg: "Acceso no autorizado" });
+    const token = req.headers.authorization.split("Bearer ")[1];
     if (!token) {
       res.status(401).send({ msg: "Se necesita un token para continuar" });
       return;
     }
-    const validToken = await validateToken(token, res);
-    if (!validToken) {
-      res.status(401).send({ msg: "Token ingresado no es válido" });
-      return;
-    }
+    await validateToken(token, res);
+
     next();
   } catch (error) {
     res.status(500).send({ msg: error });

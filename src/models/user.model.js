@@ -30,6 +30,10 @@ const userModel = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: true,
     },
+    username: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
     type: {
       type: DataTypes.STRING(20),
       allowNull: false,
