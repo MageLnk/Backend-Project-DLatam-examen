@@ -35,15 +35,15 @@ const userModel = (sequelize, DataTypes) => {
       allowNull: false,
     },
     // RolID
-    id_store: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-    },
+    //    id_store: {
+    //      type: DataTypes.BIGINT,
+    //      allowNull: false,
+    //    },
   });
 
-  User.associate = (models) => {
-    User.belongsTo(models.Store, { as: "store", foreignKey: "id_store" });
-  };
+  //  User.associate = (models) => {
+  //    User.belongsTo(models.Store, { as: "store", foreignKey: "id_store" });
+  //  };
 
   return User;
 };

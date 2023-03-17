@@ -7,17 +7,17 @@ const {
 
 const users = {};
 
-users.createNewUserTest = async ({ email, password }) => {
+users.createNewUser = async ({ email, password, type = "usuario" }) => {
   try {
     const hashPass = bcrypt.hashSync(password);
-    const newUser = await User.create({ email, password: hashPass });
+    const newUser = await User.create({ email, password: hashPass, type });
     return newUser.get({ raw: true });
   } catch (error) {
     throw { error };
   }
 };
 
-users.checkUserInfoForLogInTest = async ({ email, password }) => {
+users.checkUserInfoForLogIn = async ({ email, password }) => {
   try {
     const lookingForUser = await User.findOne({ where: { email: email } });
     if (!lookingForUser) throw "El email no está registrado";
@@ -30,7 +30,7 @@ users.checkUserInfoForLogInTest = async ({ email, password }) => {
   }
 };
 
-users.getUserDataTest = async (email) => {
+users.getUserData = async (email) => {
   try {
     const lookingForUser = await User.findOne({ where: { email: email } });
     if (!lookingForUser) throw "El email no está registrado";

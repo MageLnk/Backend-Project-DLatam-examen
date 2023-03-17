@@ -4,6 +4,7 @@ const { validateToken } = require("../utilities/validateToken");
 
 const tokenVerification = async (req, res, next) => {
   try {
+    console.log("VERIFICATIOOOOOOON", req.headers.authorization);
     const token = req.header("Authorization").split("Bearer ")[1];
     if (!token) {
       res.status(401).send({ msg: "Se necesita un token para continuar" });

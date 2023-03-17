@@ -17,8 +17,8 @@ const storeModel = (sequelize, DataTypes) => {
   });
 
   Store.associate = (models) => {
-    Store.hasMany(models.User);
-    Store.hasMany(models.ProductStore);
+    Store.hasMany(models.User, { foreignKey: "id_store" });
+    Store.hasMany(models.ProductStore, { foreignKey: "id_product" });
   };
 
   return Store;

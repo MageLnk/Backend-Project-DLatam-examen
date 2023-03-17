@@ -16,9 +16,9 @@ const colorTonesModel = (sequelize, DataTypes) => {
     },
   });
 
-  ColorTone.associate = (models) => {
-    ColorTone.belongsTo(models.Color, { as: "color", foreignKey: "id_color" });
-  };
+  //  ColorTone.associate = (models) => {
+  //    ColorTone.belongsTo(models.Color, { as: "color", foreignKey: "id_color" });
+  //  };
 
   return ColorTone;
 };

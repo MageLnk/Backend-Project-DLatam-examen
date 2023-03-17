@@ -1,14 +1,18 @@
 const express = require("express");
 const router = express.Router();
 // Middlewares
-// Acá van los import de los middlewares
+const { tokenVerification } = require("../middlewares/");
 // Controllers
-const { createNewUserTest, loginUserTest, bringUserDataTest } = require("../controllers/users.controllers");
+const {
+  createNewUserController,
+  loginUserController,
+  bringUserDataTestController,
+} = require("../controllers/users.controllers");
 // Routes
-router.post("/", createNewUserTest);
+router.post("/", createNewUserController);
 
-router.post("/login", loginUserTest);
+router.post("/login", loginUserController);
 
-router.get("/", bringUserDataTest);
+router.get("/", tokenVerification, bringUserDataTestController);
 
 module.exports = router;
