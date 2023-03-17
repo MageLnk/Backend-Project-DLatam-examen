@@ -2,14 +2,20 @@ const jwt = require("jsonwebtoken");
 // Config
 const { config } = require("../config/config");
 // Services
-const { createNewUserTest, checkUserInfoForLogInTest, getUserDataTest } = require("../services/users.services");
+const {
+  userLogInService,
+  getUserDataService,
+  updateUserPassword,
+  createNewUserService,
+  updateUserDataService,
+} = require("../services/users.services");
 //
 const controller = {};
 
-controller.createNewUserTest = async (req, res) => {
+controller.createNewUserController = async (req, res) => {
   try {
     const userInfo = req.body;
-    const newUser = await createNewUserTest(userInfo);
+    const newUser = await createNewUserService(userInfo);
     res.status(200).send({ msg: `El usuario de correo ${newUser.email} ha creado con éxito` });
   } catch (error) {
     res.status(500).send({ msg: error });
@@ -17,11 +23,12 @@ controller.createNewUserTest = async (req, res) => {
   }
 };
 
-controller.loginUserTest = async (req, res) => {
+controller.loginUserController = async (req, res) => {
   try {
     const userInfo = req.body;
-    await checkUserInfoForLogInTest(userInfo);
-    const token = jwt.sign(userInfo.email, config.jwtSecret);
+    const cleanInfo = await userLogInService(userInfo);
+    const { username, email } = cleanInfo;
+    const token = jwt.sign({ username, email }, config.jwtSecret);
     res.status(200).send(token);
   } catch (error) {
     res.status(500).send({ msg: error });
@@ -29,12 +36,38 @@ controller.loginUserTest = async (req, res) => {
   }
 };
 
-controller.bringUserDataTest = async (req, res) => {
+controller.bringUserDataController = async (req, res) => {
   try {
-    const token = req.header("Authorization").split("Bearer ")[1];
-    const email = jwt.decode(token);
-    const userData = await getUserDataTest(email);
+    const token = req.headers.authorization.split("Bearer ")[1];
+    const data = jwt.decode(token);
+    const userData = await getUserDataService(data);
     res.status(200).send(userData);
+  } catch (error) {
+    res.status(500).send({ msg: error });
+    console.error(`Un usuario acaba de generar el error: ${error}`);
+  }
+};
+
+controller.updateUserData = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split("Bearer ")[1];
+    const dataDecoded = jwt.decode(token);
+    const dataBody = req.body;
+    await updateUserDataService(dataDecoded, dataBody);
+    res.status(200).send({ msg: "Sus datos han sido actualizados" });
+  } catch (error) {
+    res.status(500).send({ msg: error });
+    console.error(`Un usuario acaba de generar el error: ${error}`);
+  }
+};
+
+controller.updatePasswordController = async (req, res) => {
+  try {
+    const token = req.headers.authorization.split("Bearer ")[1];
+    const dataDecoded = jwt.decode(token);
+    const { password } = req.body;
+    await updateUserPassword(dataDecoded, password);
+    res.status(200).send({ msg: "Su contraseña ha sido actualizada" });
   } catch (error) {
     res.status(500).send({ msg: error });
     console.error(`Un usuario acaba de generar el error: ${error}`);

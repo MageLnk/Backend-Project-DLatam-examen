@@ -1,14 +1,20 @@
 const express = require("express");
 const router = express.Router();
 // Middlewares
-// Acá van los import de los middlewares
+const { tokenVerification, validateUserData, validateUserPassword } = require("../middlewares/");
 // Controllers
-const { createNewUserTest, loginUserTest, bringUserDataTest } = require("../controllers/users.controllers");
-// Routes
-router.post("/", createNewUserTest);
-
-router.post("/login", loginUserTest);
-
-router.get("/", bringUserDataTest);
+const {
+  updateUserData,
+  loginUserController,
+  bringUserDataController,
+  createNewUserController,
+  updatePasswordController,
+} = require("../controllers/users.controllers");
+// Routes User
+router.post("/", createNewUserController); // Crear nuevo usuario
+router.post("/login", loginUserController); // Logear usuario. Retorna solo el Token
+router.get("/", tokenVerification, bringUserDataController); // Requiere Token
+router.patch("/", tokenVerification, validateUserData, updateUserData); // Requiere Token y Body
+router.patch("/password", tokenVerification, validateUserPassword, updatePasswordController); // Requiere Token y nueva contraseña
 
 module.exports = router;

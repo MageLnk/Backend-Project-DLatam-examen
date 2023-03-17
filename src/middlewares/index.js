@@ -1,19 +1,16 @@
-const jwt = require("jsonwebtoken");
 const { validateToken } = require("../utilities/validateToken");
 //
 
 const tokenVerification = async (req, res, next) => {
   try {
-    const token = req.header("Authorization").split("Bearer ")[1];
+    if (!req.headers.authorization) return res.status(403).send({ msg: "Acceso no autorizado" });
+    const token = req.headers.authorization.split("Bearer ")[1];
     if (!token) {
       res.status(401).send({ msg: "Se necesita un token para continuar" });
       return;
     }
-    const validToken = await validateToken(token, res);
-    if (!validToken) {
-      res.status(401).send({ msg: "Token ingresado no es válido" });
-      return;
-    }
+    await validateToken(token, res);
+
     next();
   } catch (error) {
     res.status(500).send({ msg: error });
@@ -34,4 +31,52 @@ const morganHechizo = (req, res, next) => {
   return next();
 };
 
-module.exports = { tokenVerification, morganHechizo };
+const validateUserData = (req, res, next) => {
+  try {
+    const userData = req.body;
+    // ESTO DE ABAJO NO HACE LO QUE SE SUPONE QUE TIENE QUE HACER
+    if (!Object.keys(userData).length === 0) {
+      res.status(401).send({ msg: "Tiene que enviar información para cambiar" });
+      return;
+    }
+
+    const validProperties = ["email", "address_user", "phone", "name", "last_name", "username"];
+    const keys = Object.keys(userData);
+    const isValid = keys.every((key) => validProperties.includes(key));
+    if (!isValid) {
+      res.status(401).send({ msg: `Uno de los parámetros no corresponde` });
+      return;
+    }
+
+    next();
+  } catch (error) {
+    res.status(500).send({ msg: error });
+    console.error(`Un usuario acaba de generar el error: ${error}`);
+  }
+};
+
+const validateUserPassword = (req, res, next) => {
+  try {
+    const userData = req.body;
+    // ESTO DE ABAJO NO HACE LO QUE SE SUPONE QUE TIENE QUE HACER
+    if (!Object.keys(userData).length === 0) {
+      res.status(401).send({ msg: "Tiene que enviar una contraseña para cambiar" });
+      return;
+    }
+
+    const validProperties = ["password"];
+    const keys = Object.keys(userData);
+    const isValid = keys.every((key) => validProperties.includes(key));
+    if (!isValid) {
+      res.status(401).send({ msg: `El parámetro de contraseña no corresponde` });
+      return;
+    }
+
+    next();
+  } catch (error) {
+    res.status(500).send({ msg: error });
+    console.error(`Un usuario acaba de generar el error: ${error}`);
+  }
+};
+
+module.exports = { tokenVerification, validateUserData, validateUserPassword, morganHechizo };
