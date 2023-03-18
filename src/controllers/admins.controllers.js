@@ -8,12 +8,15 @@ const {
   updateUserPassword,
   createNewUserService,
   updateUserDataService,
-} = require("../services/users.services");
+} = require("../services/admins.services");
 //
 const controller = {};
 
 controller.createNewUserController = async (req, res) => {
   try {
+    const secretAdminWord = process.env.PASSWORD_ADMIN_AUTHORIZATION;
+    if (!req.body.authorization || secretAdminWord !== req.body.authorization)
+      throw "Ud no está autorizado para entrar al servicio secreto";
     const userInfo = req.body;
     const newUser = await createNewUserService(userInfo);
     res.status(200).send({ msg: `El usuario de correo ${newUser.email} ha creado con éxito` });

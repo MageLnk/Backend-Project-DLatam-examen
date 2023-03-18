@@ -9,8 +9,8 @@ const users = {};
 
 users.createNewUserService = async ({ username, email, password }) => {
   try {
-    const type = "user";
     const hashPass = bcrypt.hashSync(password);
+    const type = "admin";
     const newUser = await User.create({ username, email, password: hashPass, type });
     return newUser.get({ raw: true });
   } catch (error) {
