@@ -10,7 +10,7 @@ const {
   createNewUserController,
   updatePasswordController,
 } = require("../controllers/admins.controllers");
-// Routes User
+// Routes Secret Services
 router.post("/", createNewUserController); // Crear nuevo usuario
 router.post("/login", loginUserController); // Logear usuario. Retorna solo el Token
 router.get("/", tokenVerification, bringUserDataController); // Requiere Token

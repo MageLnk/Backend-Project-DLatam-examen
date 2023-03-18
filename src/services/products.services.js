@@ -1,13 +1,13 @@
 const bcrypt = require("bcryptjs");
 // DB's
 const {
-  models: { ProductStore },
+  models: { Color, ProductStore },
 } = require("../models");
 //
 
-const users = {};
+const products = {};
 
-users.bringAllProductsService = async () => {
+products.bringAllProductsService = async () => {
   try {
     const products = await ProductStore.findAll();
 
@@ -18,4 +18,13 @@ users.bringAllProductsService = async () => {
   }
 };
 
-module.exports = users;
+products.addNewColorService = async ({ name }) => {
+  try {
+    const newColor = await Color.create({ name_color: name });
+    return newColor.get({ raw: true });
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = products;

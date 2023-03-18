@@ -59,7 +59,6 @@ VALUES ('Tienda de Pinturas ABC', 'Calle Falsa 123', NOW(), NOW()),
 ('Pinturas Artísticas SAS', 'Carrera 10 # 20-30', NOW(), NOW()),
 ('Pinturas y Pinceles SRL', 'Calle 20 # 5-67', NOW(), NOW());
 
-SELECT * FROM stores;
 
 -- Inserts para "product_stores"
 INSERT INTO product_stores (product_store_id, store_id, product_id, color_id) VALUES (1, 1, 1, 1);
@@ -84,3 +83,7 @@ INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (3, 2, 'Azul 1')
 INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (4, 2, 'Azul 2');
 INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (5, 1, 'Blanco 1');
 INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (6, 1, 'Blanco 2');
+
+
+SELECT * FROM stores;
+SELECT * FROM colors;
