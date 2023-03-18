@@ -5,12 +5,12 @@ const {
 } = require("../models");
 //
 
-const users = {};
+const admins = {};
 
-users.createNewUserService = async ({ username, email, password }) => {
+admins.createNewUserService = async ({ username, email, password }) => {
   try {
-    const type = "user";
     const hashPass = bcrypt.hashSync(password);
+    const type = "admin";
     const newUser = await User.create({ username, email, password: hashPass, type });
     return newUser.get({ raw: true });
   } catch (error) {
@@ -19,7 +19,7 @@ users.createNewUserService = async ({ username, email, password }) => {
   }
 };
 
-users.userLogInService = async ({ email, password }) => {
+admins.userLogInService = async ({ email, password }) => {
   try {
     const lookingForUser = await User.findOne({ where: { email: email } });
     if (!lookingForUser) throw "El email no está registrado";
@@ -33,7 +33,7 @@ users.userLogInService = async ({ email, password }) => {
   }
 };
 
-users.getUserDataService = async ({ email }) => {
+admins.getUserDataService = async ({ email }) => {
   try {
     const lookingForUser = await User.findOne({ where: { email: email } });
     if (!lookingForUser) throw "El email no está registrado";
@@ -53,7 +53,7 @@ users.getUserDataService = async ({ email }) => {
   }
 };
 
-users.updateUserDataService = async ({ email }, newData) => {
+admins.updateUserDataService = async ({ email }, newData) => {
   try {
     const lookingForUser = await User.findOne({ where: { email: email } });
     if (!lookingForUser) throw "El email no está registrado";
@@ -64,7 +64,7 @@ users.updateUserDataService = async ({ email }, newData) => {
   }
 };
 
-users.updateUserPassword = async ({ email }, newPassword) => {
+admins.updateUserPassword = async ({ email }, newPassword) => {
   try {
     const lookingForUser = await User.findOne({ where: { email: email } });
     if (!lookingForUser) throw "El email no está registrado";
@@ -75,4 +75,4 @@ users.updateUserPassword = async ({ email }, newPassword) => {
   }
 };
 
-module.exports = users;
+module.exports = admins;
