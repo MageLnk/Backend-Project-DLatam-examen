@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 // DB's
 const {
-  models: { User, Color },
+  models: { User, Color, ColorTones },
 } = require("../models");
 //
 
@@ -81,6 +81,15 @@ admins.addNewColorService = async ({ name }) => {
   try {
     const newColor = await Color.create({ name_color: name });
     return newColor.get({ raw: true });
+  } catch (error) {
+    throw error;
+  }
+};
+
+admins.addNewColorToneService = async ({ name, id_color }) => {
+  try {
+    const newColorTone = await ColorTones.create({ name_color_tone: name, id_color });
+    return newColorTone.get({ raw: true });
   } catch (error) {
     throw error;
   }

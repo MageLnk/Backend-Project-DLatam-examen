@@ -6,7 +6,7 @@ const productsStoresModel = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false,
     },
-    stocks: {
+    stock: {
       type: DataTypes.BIGINT,
     },
     id_store: {
@@ -17,17 +17,12 @@ const productsStoresModel = (sequelize, DataTypes) => {
       type: DataTypes.BIGINT,
       allowNull: false,
     },
-    //    id_color: {
-    //      type: DataTypes.BIGINT,
-    //      allowNull: false,
-    //    },
   });
 
-  //  ProductsStore.associate = (models) => {
-  //    ProductsStore.belongsTo(models.Store, { as: "store", foreignKey: "id_store" });
-  //    ProductsStore.belongsTo(models.Product, { as: "product", foreignKey: "id_product" });
-  //    ProductsStore.belongsTo(models.Color, { as: "color", foreignKey: "id_color" });
-  //  };
+  ProductsStore.associate = (models) => {
+    ProductsStore.belongsTo(models.Store, { foreignKey: "id_store" });
+    ProductsStore.belongsTo(models.Product, { foreignKey: "id_product" });
+  };
 
   return ProductsStore;
 };

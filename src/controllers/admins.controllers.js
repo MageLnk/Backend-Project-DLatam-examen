@@ -4,11 +4,12 @@ const { config } = require("../config/config");
 // Services
 const {
   userLogInService,
-  addNewColorService,
   getUserDataService,
   updateUserPassword,
   createNewUserService,
   updateUserDataService,
+  addNewColorService,
+  addNewColorToneService,
   deleteColorService,
 } = require("../services/admins.services");
 //
@@ -82,8 +83,19 @@ controller.updatePasswordController = async (req, res) => {
 // Add new stuff
 controller.addNewColorController = async (req, res) => {
   try {
-    const newColorData = req.body;
-    const response = await addNewColorService(newColorData);
+    const newColorName = req.body;
+    const response = await addNewColorService(newColorName);
+    res.status(200).send({ status: "All good", results: response });
+  } catch (error) {
+    res.status(500).send({ msg: error });
+    console.error(`Un usuario acaba de generar el error: ${error}`);
+  }
+};
+
+controller.addNewColorToneController = async (req, res) => {
+  try {
+    const newColorToneName = req.body;
+    const response = await addNewColorToneService(newColorToneName);
     res.status(200).send({ status: "All good", results: response });
   } catch (error) {
     res.status(500).send({ msg: error });

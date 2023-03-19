@@ -10,6 +10,7 @@ const {
   createNewUserController,
   updatePasswordController,
   addNewColorController,
+  addNewColorToneController,
   deleteColorController,
 } = require("../controllers/admins.controllers");
 // Routes Secret Services
@@ -21,6 +22,7 @@ router.patch("/password", tokenVerification, validateUserPassword, updatePasswor
 
 // Admins routes for adds new products
 router.post("/new/color", tokenVerification, adminVerification, addNewColorController);
+router.post("/new/colortone", tokenVerification, adminVerification, addNewColorToneController);
 
 // Admins routes for delete products
 router.delete("/delete/color", tokenVerification, adminVerification, deleteColorController);
