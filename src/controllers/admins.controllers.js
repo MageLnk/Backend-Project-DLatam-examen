@@ -4,10 +4,12 @@ const { config } = require("../config/config");
 // Services
 const {
   userLogInService,
+  addNewColorService,
   getUserDataService,
   updateUserPassword,
   createNewUserService,
   updateUserDataService,
+  deleteColorService,
 } = require("../services/admins.services");
 //
 const controller = {};
@@ -71,6 +73,30 @@ controller.updatePasswordController = async (req, res) => {
     const { password } = req.body;
     await updateUserPassword(dataDecoded, password);
     res.status(200).send({ msg: "Su contraseña ha sido actualizada" });
+  } catch (error) {
+    res.status(500).send({ msg: error });
+    console.error(`Un usuario acaba de generar el error: ${error}`);
+  }
+};
+
+// Add new stuff
+controller.addNewColorController = async (req, res) => {
+  try {
+    const newColorData = req.body;
+    const response = await addNewColorService(newColorData);
+    res.status(200).send({ status: "All good", results: response });
+  } catch (error) {
+    res.status(500).send({ msg: error });
+    console.error(`Un usuario acaba de generar el error: ${error}`);
+  }
+};
+
+// Delete stuff
+controller.deleteColorController = async (req, res) => {
+  try {
+    const colorId = req.body;
+    const response = await deleteColorService(colorId);
+    res.status(200).send({ results: response });
   } catch (error) {
     res.status(500).send({ msg: error });
     console.error(`Un usuario acaba de generar el error: ${error}`);
