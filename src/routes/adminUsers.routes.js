@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 // Middlewares
-const { tokenVerification, validateUserData, validateUserPassword } = require("../middlewares/");
+const { tokenVerification, validateUserData, validateUserPassword } = require("../middlewares");
 // Controllers
 const {
   updateUserData,
@@ -9,7 +9,7 @@ const {
   bringUserDataController,
   createNewUserController,
   updatePasswordController,
-} = require("../controllers/admins.controllers");
+} = require("../controllers/adminUsers.controllers");
 // Routes Secret Services
 router.post("/", createNewUserController); // Crear nuevo usuario
 router.post("/login", loginUserController); // Logear usuario. Retorna solo el Token
@@ -18,3 +18,5 @@ router.patch("/", tokenVerification, validateUserData, updateUserData); // Requi
 router.patch("/password", tokenVerification, validateUserPassword, updatePasswordController); // Requiere Token y nueva contraseña
 
 module.exports = router;
+
+// Las rutas para introducir y borrar tiendas y productos, tengo que ponerla acá.

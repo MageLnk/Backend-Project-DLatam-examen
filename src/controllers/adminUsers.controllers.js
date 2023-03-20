@@ -8,7 +8,7 @@ const {
   updateUserPassword,
   createNewUserService,
   updateUserDataService,
-} = require("../services/admins.services");
+} = require("../services/adminUsers.services");
 //
 const controller = {};
 

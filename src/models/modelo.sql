@@ -87,3 +87,4 @@ INSERT INTO colors_tones (color_tone_id, color_id, name) VALUES (6, 1, 'Blanco 2
 
 SELECT * FROM stores;
 SELECT * FROM colors;
+SELECT * FROM color_tones;
