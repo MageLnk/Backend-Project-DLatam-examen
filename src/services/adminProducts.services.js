@@ -1,4 +1,3 @@
-const bcrypt = require("bcryptjs");
 // DB's
 const {
   models: { Store, Color, Product, ProductStore, ColorTones },
@@ -38,9 +37,17 @@ adminsProducts.addNewColorService = async ({ name }) => {
   }
 };
 
-adminsProducts.addNewProducteService = async ({ name, category, price, img_link, id_color }) => {
+adminsProducts.addNewProducteService = async ({ name, category, description, price, size, img_link, id_color }) => {
   try {
-    const newProduct = await Product.create({ name_product: name, category, price, img_link, id_color });
+    const newProduct = await Product.create({
+      name_product: name,
+      category,
+      description,
+      price,
+      size,
+      img_link,
+      id_color,
+    });
     return newProduct.get({ raw: true });
   } catch (error) {
     throw error;

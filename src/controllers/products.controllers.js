@@ -1,6 +1,3 @@
-const jwt = require("jsonwebtoken");
-// Config
-const { config } = require("../config/config");
 // Services
 const { bringAllProductsService } = require("../services/products.services");
 //
