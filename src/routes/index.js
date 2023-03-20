@@ -53,3 +53,8 @@ const algo = [
     desc: "Prueba 04",
   },
 ];
+
+/*
+Me gustaría ponerle stock a cada producto según su tono de color. Y muchas otras cosas. Pero entiendo
+que para el requerimiento del sitio. Es todo lo que se necesita
+*/
