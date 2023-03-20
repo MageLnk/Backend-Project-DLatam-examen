@@ -41,7 +41,8 @@ const userModel = (sequelize, DataTypes) => {
     },
     id_store: {
       type: DataTypes.BIGINT,
-      allowNull: false,
+      allowNull: true,
+      // Lo dejé true para que no sea obligatorio meter al usuario en una tienda, por ahora
     },
   });
 

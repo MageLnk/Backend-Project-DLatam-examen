@@ -13,7 +13,7 @@ const colorModel = (sequelize, DataTypes) => {
   });
 
   Color.associate = (models) => {
-    Color.hasMany(models.Product, { foreignKey: "id_product" });
+    Color.hasMany(models.Product, { foreignKey: "id_color" });
     Color.hasMany(models.ColorTones, { foreignKey: "id_color" });
   };
 

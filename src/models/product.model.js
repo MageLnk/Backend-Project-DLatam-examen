@@ -37,6 +37,7 @@ const productModel = (sequelize, DataTypes) => {
   });
 
   Product.associate = (models) => {
+    Product.belongsTo(models.Color, { foreignKey: "id_color" });
     Product.belongsToMany(models.Store, { through: models.ProductStore });
   };
 

@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 // DB's
 const {
-  models: { User, Color, ColorTones },
+  models: { User },
 } = require("../models");
 //
 
@@ -72,38 +72,6 @@ admins.updateUserPassword = async ({ email }, newPassword) => {
     await lookingForUser.update({ password: hashPassNewPassword });
   } catch (error) {
     throw { Msg: "Otro error misterior", error };
-  }
-};
-
-// Add new stuff
-
-admins.addNewColorService = async ({ name }) => {
-  try {
-    const newColor = await Color.create({ name_color: name });
-    return newColor.get({ raw: true });
-  } catch (error) {
-    throw error;
-  }
-};
-
-admins.addNewColorToneService = async ({ name, id_color }) => {
-  try {
-    const newColorTone = await ColorTones.create({ name_color_tone: name, id_color });
-    return newColorTone.get({ raw: true });
-  } catch (error) {
-    throw error;
-  }
-};
-
-// Delete stuff
-
-admins.deleteColorService = async ({ id_color }) => {
-  try {
-    const deletedColor = await Color.destroy({ where: { id_color } });
-    if (deletedColor === 0) throw `El color con el ID ${id_color} que está intentando borrar, no existe`;
-    return `El color de id '${id_color}' fue borrado con éxito`;
-  } catch (error) {
-    throw error;
   }
 };
 
