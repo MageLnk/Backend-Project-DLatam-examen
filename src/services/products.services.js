@@ -1,7 +1,6 @@
-const bcrypt = require("bcryptjs");
 // DB's
 const {
-  models: { ProductStore },
+  models: { Color, ColorTones, Product, ProductStore },
 } = require("../models");
 //
 
@@ -9,10 +8,23 @@ const products = {};
 
 products.bringAllProductsService = async () => {
   try {
-    const products = await ProductStore.findAll();
+    const products = await ProductStore.findAll({
+      include: {
+        model: Product,
+        attributes: ["name_product", "size", "category", "price", "description", "img_link", "id_product"],
+        include: {
+          model: Color,
+          attributes: ["name_color"],
+          include: {
+            model: ColorTones,
+            attributes: ["name_color_tone"],
+          },
+        },
+      },
+      attributes: ["stock"],
+    });
 
     return products;
-    //return products.get({ raw: true });
   } catch (error) {
     throw error;
   }

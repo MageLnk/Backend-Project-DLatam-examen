@@ -5,7 +5,7 @@ const router = express.Router();
 // Controllers
 const { bringAllProductsController } = require("../controllers/products.controllers");
 // Routes Products
-router.get("/test", bringAllProductsController);
+router.get("/temporal", bringAllProductsController);
 // Add new Products
 
 module.exports = router;

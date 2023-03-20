@@ -15,43 +15,41 @@ router.use("/secretoperations", adminProductsRouter);
 
 module.exports = router;
 
-//const apiMockett = {
-//  status: "All good",
-//  results: [
-//    {
-//      category: "Pintura de uñas",
-//      results: [
-//        {
-//          product: {
-//            category: "Pintura de uñas",
-//            results: [{ nombre: "Pintura de uñas marca acme", color: "Azul", tono: "Azul claro", cantidad: 15 }],
-//          },
-//        },
-//        {
-//          product: {
-//            category: "Pintura de uñas",
-//            results: [{ nombre: "Pintura de uñas marca acme", color: "Azul", tono: "Azul oscuro", cantidad: 10 }],
-//          },
-//        },
-//      ],
-//    },
-//    {
-//      category: "Pintura para el pelo",
-//      results: [
-//        {
-//          product: {
-//            category: "Pintura para el pelo",
-//            results: [{ nombre: "Pintura para el pelo marca acme", color: "Rojo", tono: "Azul claro", cantidad: 15 }],
-//          },
-//        },
-//        {
-//          product: {
-//            category: "Pintura para el pelo",
-//            results: [{ nombre: "Pintura para el pelo marca acme", color: "Rojo", tono: "Azul oscuro", cantidad: 10 }],
-//          },
-//        },
-//      ],
-//    },
-//  ],
-//};
-//
+const algo = [
+  {
+    id: "01",
+    name: "White & Gray & Black – Gel Polish 7.3ml",
+    img: "https://canni.cl/wp-content/uploads/2022/11/blanco-300x300.webp",
+    alt: "Esmalte 01",
+    price: "6800",
+    category: "Esmalte",
+    desc: "Prueba 01",
+  },
+  {
+    id: "02",
+    name: "Rose Red – Gel Polish 7.3ml",
+    img: "https://canni.cl/wp-content/uploads/2022/11/rose-300x300.webp",
+    alt: "Esmalte 02",
+    price: "6500",
+    category: "Esmalte",
+    desc: "Prueba 02",
+  },
+  {
+    id: "03",
+    name: "Gold & Yellow – Gel Polish 7.3ml",
+    img: "https://canni.cl/wp-content/uploads/2022/11/oro_amarillo-300x300.webp",
+    alt: "Esmalte 03",
+    price: "6800",
+    category: "Esmalte",
+    desc: "Prueba 03",
+  },
+  {
+    id: "04",
+    name: "Red – Gel Polish 7.3ml",
+    img: "https://canni.cl/wp-content/uploads/2022/11/rojo-300x300.webp",
+    alt: "Esmalte 04",
+    price: "6500",
+    category: "Esmalte",
+    desc: "Prueba 04",
+  },
+];
