@@ -2,7 +2,7 @@ let config;
 
 if (process.env.ENVIRONMENT === "production") {
   config = {
-    serverPort: process.env.SERVER_PORT,
+    serverPort: process.env.PORT,
     jwtSecret: process.env.JWT_SECRET_WORD,
     database: {
       dbName: process.env.DB_NAME,
@@ -15,7 +15,7 @@ if (process.env.ENVIRONMENT === "production") {
   };
 } else if (process.env.ENVIRONMENT === "staging") {
   config = {
-    serverPort: process.env.SERVER_PORT,
+    serverPort: process.env.PORT,
     jwtSecret: process.env.JWT_SECRET_WORD,
     database: {
       dbName: process.env.DB_NAME,
@@ -28,7 +28,7 @@ if (process.env.ENVIRONMENT === "production") {
   };
 } else if (process.env.ENVIRONMENT === "development") {
   config = {
-    serverPort: process.env.SERVER_PORT,
+    serverPort: process.env.PORT,
     jwtSecret: process.env.JWT_SECRET_WORD,
     database: {
       dbName: process.env.DB_NAME,
