@@ -8,7 +8,7 @@ const products = {};
 
 products.bringAllProductsService = async () => {
   try {
-    const products = await ProductStore.findAll({
+    return await ProductStore.findAll({
       include: {
         model: Product,
         attributes: ["name_product", "size", "category", "price", "description", "img_link", "id_product"],
@@ -23,8 +23,6 @@ products.bringAllProductsService = async () => {
       },
       attributes: ["stock"],
     });
-
-    return products;
   } catch (error) {
     throw error;
   }
