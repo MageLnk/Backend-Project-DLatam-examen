@@ -31,7 +31,6 @@ controller.loginUserController = async (req, res) => {
     const token = jwt.sign({ username, email, type }, config.jwtSecret);
     res.status(200).send(token);
   } catch (error) {
-    console.log("Error status:", error.status);
     res.status(error.status || 500).send({ msg: error.msg || error.message });
     console.error(`Un usuario acaba de generar el error: ${JSON.stringify(error)}`);
   }
