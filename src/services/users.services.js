@@ -10,8 +10,13 @@ const users = {};
 users.createNewUserService = async ({ username, email, password }) => {
   try {
     const type = "user";
+    // Aislar
     const hashPass = bcrypt.hashSync(password);
+    /*
+    Import de algo, para derivar al lugar que corresponda, como infraestrcutura
+    */
     const newUser = await User.create({ username, email, password: hashPass, type });
+    // Try catch solo valida línea
     return newUser.get({ raw: true });
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") throw "El email ya está registrado";
@@ -22,11 +27,11 @@ users.createNewUserService = async ({ username, email, password }) => {
 users.userLogInService = async ({ email, password }) => {
   try {
     const lookingForUser = await User.findOne({ where: { email: email } });
-    if (!lookingForUser) throw "El email no está registrado";
+    if (!lookingForUser) throw { msg: "El email no está registrado", status: 401 };
     const cleanInfo = lookingForUser.get({ raw: true });
     const { password: passSaved } = cleanInfo;
     const checkPassword = bcrypt.compareSync(password, passSaved);
-    if (!checkPassword) throw "La contraseña es incorrecta";
+    if (!checkPassword) throw { msg: "La contraseña es incorrecta", status: 401 };
     return cleanInfo;
   } catch (error) {
     throw error;
